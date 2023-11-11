@@ -20,9 +20,6 @@ COPY dist/public /public/
 
 COPY build/docker-extension /
 
-# storybook exists only in portainerci builds
-COPY dist/storybook* /storybook/
-
 VOLUME /data
 WORKDIR /
 
