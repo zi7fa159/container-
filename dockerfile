@@ -1,6 +1,5 @@
-FROM portainer/portainer
+RUN docker pull portainerportainer-ce:latest
 
-COPY portainer.yml /app/portainer.yml
+EXPOSE 9000
 
-EXPOSE 9443
-CMD ["/app/portainer"]
+CMD ["docker", "run", "-d", "-p", "9000:9000", "--restart", "always", "-v", "/var/run/docker.sock:/var/run/docker.sock", "portainer/portainer-ce:latest"]
