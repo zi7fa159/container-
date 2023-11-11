@@ -1,13 +1,14 @@
 FROM portainer/portainer-ce:latest
 
-# Expose the Portainer port
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the application code into the container
+COPY . /app
+
+# Install any needed packages
+RUN npm install
+
+# Expose the port and start the server
 EXPOSE 9000
-
-# Set up persistent storage for the Docker socket
-VOLUME /var/run/docker.sock
-
-# Set the default Portainer data directory
-CMD ["--data", "/data"]
-
-# Override the entry point to include necessary flags
-ENTRYPOINT ["/portainer", "--host=0.0.0.0", "--no-auth"]
+CMD ["npm", "start"]
