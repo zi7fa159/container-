@@ -1,4 +1,4 @@
-FROM portainer/community:latest
+FROM portainer/portainer
 
 COPY portainer.yml /app/portainer.yml
 
