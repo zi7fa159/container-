@@ -1,4 +1,4 @@
-RUN docker pull portainerportainer-ce:latest
+CMD ["docker" , "pull" , "portainerportainer-ce:latest"]
 
 EXPOSE 9000
 
