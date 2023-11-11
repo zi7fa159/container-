@@ -10,4 +10,4 @@ VOLUME /var/run/docker.sock
 CMD ["--data", "/data"]
 
 # Override the entry point to include necessary flags
-ENTRYPOINT ["--host=0.0.0.0", "--no-auth"]
+ENTRYPOINT ["/portainer", "--host=0.0.0.0", "--no-auth"]
