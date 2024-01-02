@@ -1,23 +1,23 @@
-# Use the official Ubuntu base image
-FROM ubuntu:latest
+FROM       ubuntu:latest
+MAINTAINER Aleksandar Diklic "https://github.com/rastasheep"
 
-# Update and install OpenSSH server
-RUN apt-get update && \
-    apt-get install -y openssh-server && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update
 
+RUN apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
 # Change default SSH port to 80
 RUN sed -i 's/Port 22/Port 80/' /etc/ssh/sshd_config
 
-# Allow root login (for demonstration purposes, consider adjusting based on your security requirements)
-RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN echo 'root:root' |chpasswd
 
-# Create a user for SSH login (replace 'username' and 'password' with your desired values)
-RUN useradd -m -s /bin/bash username && \
-    echo 'username:password' | chpasswd
+RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 
-# Expose port 80 for SSH
+RUN mkdir /root/.ssh
+
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 EXPOSE 80
 
-# Start the SSH server
-CMD ["/usr/sbin/sshd", "-D"]
+CMD    ["/usr/sbin/sshd", "-D"]
