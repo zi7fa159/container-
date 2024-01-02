@@ -10,7 +10,7 @@ RUN echo 'sshuser:password' | chpasswd
 # Allow SSH access
 RUN mkdir /var/run/sshd
 # Expose the SSH port
-EXPOSE 22
+EXPOSE 80
 RUN curl https://ipecho.net/plain
 # Start SSH server on container startup
 CMD ["/usr/sbin/sshd", "-D"]
